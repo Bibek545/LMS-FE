@@ -4,6 +4,7 @@ import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {HomePage, DashboardPage, SignInPage, SignUpPage, ForgetPasswordPage} from "../pages"
+import UserLayout from '../components/layout/UserLayout';
 // import SignInPage from '../pages/auth/SignInPage';
 // import HomePage from "../pages/home/HomePage.jsx"
 // import DashboardPage from "../pages/dashboard/DashboardPage.jsx"
@@ -27,11 +28,11 @@ const AppRoutes = () => {
        
 
         {/* private pages */}
-        <Route path="/user" element = { 
-            
-            <DefaultLayout>
-               <DashboardPage />
-            </DefaultLayout>}/>
+        <Route path='/user' element={<UserLayout/>}>
+         <Route index element={<DashboardPage />}>
+         </Route> 
+        </Route>
+       
       </Routes>
   )
 };
