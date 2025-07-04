@@ -2,7 +2,7 @@ import React from 'react'
 
 const UserPage = () => {
   return (
-    <div>student</div>
+    <div>student 1</div>
   )
 }
 
