@@ -4,6 +4,8 @@ import Form from "react-bootstrap/Form";
 import CustomInput from "../../components/customInput/CustomInput.jsx";
 import { singUpINputes } from "../../assets/customInputs/userSignUpInputs.js";
 import useForm from "../../hooks/useForm.js";
+import { signUpNewUserApi } from "../../services/authAPI.jsx";
+import { apiProcessor } from "../../services/api.jsx";
 
 
 const initialState = {}
@@ -12,15 +14,17 @@ const SignUpPage = () => {
   //  console.log(form);
 
 
-  const handleOnSubmit = (e)=> {
+  const handleOnSubmit = async (e)=> {
       e.preventDefault();
       console.log(form);
-      
-  }
 
 
-  useForm()
-  return (
+    const {confirmPassword, ...rest} = form
+    if(confirmPassword!==rest.password) return alert("Password does not match")
+      const result = await signUpNewUserApi(rest);
+    console.log(result);
+  } 
+  return ( 
     <div className="d-flex justify-content-center">
 
         <Form 
@@ -39,5 +43,4 @@ const SignUpPage = () => {
     </div>
   );
 };
-
 export default SignUpPage;

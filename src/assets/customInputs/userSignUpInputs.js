@@ -29,14 +29,14 @@ export const singUpINputes = [
   },
   {
     label: "Password",
-    name: "pasword",
+    name: "password",
     type: "password",
     required: true,
     placeholder: "xxxx",
   },
   {
     label: "Confirm Password",
-    name: "confirmpassword",
+    name: "confirmPassword",
     type: "password",
     required: true,
     placeholder: "xxxx",

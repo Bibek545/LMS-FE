@@ -1,8 +1,8 @@
 export { default as HomePage} from "../pages/home/HomePage";
 export { default as DashboardPage} from "../pages/dashboard/DashboardPage";
 export { default as ForgetPasswordPage} from "../pages/auth/ForgetPasswordPage";
-export { default as SignInPage} from "../pages/auth/SignInPage";
-export { default as SignUpPage} from "../pages/auth/SignUpPage";
+export { default as SignInPage} from "./auth/SignUpPage";
+export { default as SignUpPage} from "./auth/SignInPage";
 
 export { default as Books} from "../pages/books/Books";
 export { default as BookLandingPage} from "../pages/books/BookLandingPage";
