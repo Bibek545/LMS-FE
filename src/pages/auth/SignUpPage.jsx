@@ -5,12 +5,11 @@ import CustomInput from "../../components/customInput/CustomInput.jsx";
 import { singUpINputes } from "../../assets/customInputs/userSignUpInputs.js";
 import useForm from "../../hooks/useForm.js";
 import { signUpNewUserApi } from "../../services/authAPI.jsx";
-import { apiProcessor } from "../../services/api.jsx";
 
 
 const initialState = {}
 const SignUpPage = () => {
-   const {form, setForm, handleOnChange } = useForm(initialState);
+   const {form, setForm, handleOnChange, passwordErrors } = useForm(initialState);
   //  console.log(form);
 
 
@@ -24,6 +23,7 @@ const SignUpPage = () => {
       const result = await signUpNewUserApi(rest);
     console.log(result);
   } 
+  console.log(passwordErrors);
   return ( 
     <div className="d-flex justify-content-center">
 
@@ -35,8 +35,15 @@ const SignUpPage = () => {
             singUpINputes.map((input)=> (  
             <CustomInput key = {input.name} {...input} onChange = {handleOnChange}/>))
            }
-      
-          <Button variant="primary" type="submit">
+            <div className="py-3">
+              <ul className="text-danger">
+                {
+                  passwordErrors.length > 0 && passwordErrors.map((msg)=>   <li key = {msg}>{msg} </li>)
+                }
+             
+              </ul>
+            </div>
+          <Button variant="primary" type="submit" disabled={passwordErrors.length}>
             Submit
           </Button>
         </Form>
