@@ -8,6 +8,7 @@ import {
   DashboardPage,
   SignInPage,
   SignUpPage,
+  VerifyUser,
   ForgetPasswordPage,
   BookLandingPage,
   Books,
@@ -17,6 +18,7 @@ import {
   UserPage,
   Profile,
   BorrowPage,
+
 } from "../pages";
 import UserLayout from "../components/layout/UserLayout";
 
@@ -31,6 +33,7 @@ const AppRoutes = () => {
       <Route path="/" element={<DefaultLayout />}>
         <Route index element={<HomePage />}></Route>
         <Route path="signup" element={<SignInPage />}></Route>
+        <Route path="verify-user" element={<VerifyUser />}></Route>
         <Route path="login" element={<SignUpPage />}></Route>
         <Route path="forgot-password" element={<ForgetPasswordPage />}></Route>
       </Route>
