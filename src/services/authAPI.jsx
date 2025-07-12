@@ -10,6 +10,7 @@ export const signUpNewUserApi =  async (payload) => {
         url: authApiEP + '/register', 
         method: "post",
         payload,
+        showToast : true,
     }
 
     const result = await apiProcessor(obj);
