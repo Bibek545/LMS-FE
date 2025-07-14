@@ -33,7 +33,7 @@ const AppRoutes = () => {
       <Route path="/" element={<DefaultLayout />}>
         <Route index element={<HomePage />}></Route>
         <Route path="signup" element={<SignInPage />}></Route>
-        <Route path="verify-user" element={<VerifyUser />}></Route>
+        <Route path="activate-user" element={<VerifyUser />}></Route>
         <Route path="login" element={<SignUpPage />}></Route>
         <Route path="forgot-password" element={<ForgetPasswordPage />}></Route>
       </Route>
