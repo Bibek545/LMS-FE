@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import { loginInputs } from '../../assets/customInputs/userLogInInputs.js';
 import CustomInput from '../../components/customInput/CustomInput.jsx';
 import useForm from '../../hooks/useForm.js';
+import { signInUserApi } from '../../services/authAPI.jsx';
 
 const initialState = {}
 const SignInPage = () => {
@@ -12,11 +13,23 @@ const SignInPage = () => {
   const {form, handleOnChange} = useForm(initialState);
   // console.log(form)
   
-  const handleOnSubmit = (e)=> {
+  const handleOnSubmit = async (e)=> {
     e.preventDefault();
     console.log(form)
-  }
+  
 
+  if(form.email && form.password) {
+    const {payload} = await signInUserApi(form);
+
+    sessionStorage.setItem('accessJWT', payload.accessJWT)
+    localStorage.setItem("refreshJWT", payload.refreshJWT)
+    // console.log(data);
+
+    //getting user and redirecting to dashboard
+  } else {
+    alert('Both input must be filled.')
+  }
+  };
 
   return (
     <div className='login-page d-flex justify-content-center align-items-center'>

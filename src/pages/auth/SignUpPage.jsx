@@ -46,6 +46,8 @@ const SignUpPage = () => {
           <Button variant="primary" type="submit" disabled={passwordErrors.length}>
             Submit
           </Button>
+          <br />
+          <div className="text-center">Alread have an account? <a href="/login">Login</a> here.</div>
         </Form>
     </div>
   );
