@@ -1,3 +1,14 @@
 .main {
     min-height: 85vh;
 }
+
+/* login page */
+.login-page {
+    min-height: 90vh;
+    background: url(./assets/login-background.jpg);
+    background-size: cover;
+    /* position: relative; */
+}
+.login-card {
+     background-color: rgba(255, 255, 255, 0.85); /* white with 85% opacity */
+}
