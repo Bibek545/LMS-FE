@@ -6,6 +6,7 @@ import { loginInputs } from '../../assets/customInputs/userLogInInputs.js';
 import CustomInput from '../../components/customInput/CustomInput.jsx';
 import useForm from '../../hooks/useForm.js';
 import { signInUserApi } from '../../services/authAPI.jsx';
+import { fetchUserAPI } from '../../features/user/userApi.js';
 
 const initialState = {}
 const SignInPage = () => {
@@ -20,12 +21,20 @@ const SignInPage = () => {
 
   if(form.email && form.password) {
     const {payload} = await signInUserApi(form);
+  if(payload?.accessJWT) {
 
+
+    //stroring accessJWT and refreshJWT in the session stprage and locak storage
     sessionStorage.setItem('accessJWT', payload.accessJWT)
     localStorage.setItem("refreshJWT", payload.refreshJWT)
     // console.log(data);
 
+    //call api to get user profile
+    const userInfo = await fetchUserAPI();
+    console.log(userInfo);
+
     //getting user and redirecting to dashboard
+  }
   } else {
     alert('Both input must be filled.')
   }
