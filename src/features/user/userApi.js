@@ -14,7 +14,7 @@ export const fetchUserAPI = async() => {
     };
 
     const result = await apiProcessor(obj);
-    console.log(result);
+  return result;
 
 
 }
