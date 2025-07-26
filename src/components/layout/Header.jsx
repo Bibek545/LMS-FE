@@ -8,12 +8,19 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { Link } from "react-router-dom";
 
+
 // icons
 import { IoHomeOutline } from "react-icons/io5";
 import { CiLogin } from "react-icons/ci";
 import { PiSignInLight } from "react-icons/pi";
 import { IoLibrarySharp } from "react-icons/io5";
+import { MdSpaceDashboard } from "react-icons/md";
+import { CiLogout } from "react-icons/ci";
+
+import { useSelector } from "react-redux";
 const Header = () => {
+
+  const {user} = useSelector((state)=>state.userInfo)
   return (
     <Navbar expand="md" className="bg-dark" variant="dark">
       <Container>
@@ -22,8 +29,19 @@ const Header = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
             <Link className="nav-link"  to="/"><IoHomeOutline /> Home</Link>
-            <Link className="nav-link" to="/signup"> <PiSignInLight /> Sign Up</Link>
-            <Link className="nav-link" to="/login"> <CiLogin /> Log In</Link>
+            {
+              user?._id ? (
+                <>
+                                   <Link className="nav-link" to="/user"> <MdSpaceDashboard /> Dashboard</Link>
+            <Link className="nav-link" to="/"> <CiLogout /> Logout </Link></>
+
+              ) : (
+                <>
+                   <Link className="nav-link" to="/signup"> <PiSignInLight /> Sign Up</Link>
+            <Link className="nav-link" to="/login"> <CiLogin /> Login</Link></>
+              )
+            }
+         
 
           </Nav>
         </Navbar.Collapse>

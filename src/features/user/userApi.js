@@ -14,7 +14,7 @@ export const fetchUserAPI = async() => {
     };
 
     const result = await apiProcessor(obj);
-  return result;
+  return result; //always return otherwise it will throw error in destructuring
 
 
 }
