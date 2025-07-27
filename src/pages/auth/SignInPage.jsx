@@ -7,7 +7,7 @@ import CustomInput from "../../components/customInput/CustomInput.jsx";
 import useForm from "../../hooks/useForm.js";
 import { signInUserApi } from "../../services/authAPI.jsx";
 import { fetchUserAPI } from "../../features/user/userApi.js";
-import { fetchUserAction } from "../../features/user/userAction.js";
+import { autoLoginUser, fetchUserAction } from "../../features/user/userAction.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -21,8 +21,8 @@ const SignInPage = () => {
   const {user} = useSelector((state)=>state.userInfo)
 
   useEffect(()=>{
-    user?._id && navigate("/user")
-  }, [user?._id, navigate]);
+    user?._id ? navigate("/user") : dispatch(autoLoginUser());
+  }, [user?._id, navigate, dispatch]);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();

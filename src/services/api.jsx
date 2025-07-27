@@ -4,6 +4,9 @@ import { toast } from "react-toastify";
 const getAccessJWT = () => {
   return sessionStorage.getItem("accessJWT");
 };
+const getRefreshJWt = () => {
+  return localStorage.getItem("refreshJWT");
+};
 
 export const apiProcessor = async ({
   url,
@@ -11,11 +14,14 @@ export const apiProcessor = async ({
   payload,
   showToast,
   isPrivateCall,
+  isRefreshJWt,
 }) => {
   try {
     const headers = {};
+
     if (isPrivateCall) {
-      headers.authorization = "bearer " + getAccessJWT();
+      const token = isRefreshJWt ? getRefreshJWt() : getAccessJWT();
+      headers.authorization = "bearer " + token;
     }
     const responsePending = axios({
       url,
