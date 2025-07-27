@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { loginInputs } from "../../assets/customInputs/userLogInInputs.js";
+import { loginInputs } from "../../assets/customInputs/userLoginInputs.js";
 import CustomInput from "../../components/customInput/CustomInput.jsx";
 import useForm from "../../hooks/useForm.js";
 import { signInUserApi } from "../../services/authAPI.jsx";
