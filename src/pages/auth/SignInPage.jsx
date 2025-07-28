@@ -1,13 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 import Button from "react-bootstrap/Button";
+import { Spinner } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import { loginInputs } from "../../assets/customInputs/userLoginInputs.js";
 import CustomInput from "../../components/customInput/CustomInput.jsx";
 import useForm from "../../hooks/useForm.js";
 import { signInUserApi } from "../../services/authAPI.jsx";
 import { fetchUserAPI } from "../../features/user/userApi.js";
-import { autoLoginUser, fetchUserAction } from "../../features/user/userAction.js";
+import {
+  autoLoginUser,
+  fetchUserAction,
+} from "../../features/user/userAction.js";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -15,14 +19,28 @@ const initialState = {};
 const SignInPage = () => {
   const { form, handleOnChange } = useForm(initialState);
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const showLoaderRef = useRef(true);
   // console.log(form)
 
-  const {user} = useSelector((state)=>state.userInfo)
+  const { user } = useSelector((state) => state.userInfo);
 
-  useEffect(()=>{
+  useEffect(() => {
     user?._id ? navigate("/user") : dispatch(autoLoginUser());
   }, [user?._id, navigate, dispatch]);
+
+  //this is to show spinner while loading to login page
+
+  if (
+    sessionStorage.getItem("accessJWT") ||
+    localStorage.getItem("refreshJWT")
+  ) {
+    setTimeout(() => {
+      showLoaderRef.current = false;
+    }, 2000);
+  } else {
+    showLoaderRef.current = false;
+  }
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
@@ -39,7 +57,6 @@ const SignInPage = () => {
 
         //call api to get user profile
         dispatch(fetchUserAction());
-        
 
         //getting user and redirecting to dashboard
       }
@@ -47,6 +64,16 @@ const SignInPage = () => {
       alert("Both input must be filled.");
     }
   };
+
+  if (showLoaderRef.current) {
+    return (
+      <div className="vh-100 d-flex justify-content-center align-items-center">
+        <Spinner animation="border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
+  }
 
   return (
     <div className="login-page d-flex justify-content-center align-items-center">
