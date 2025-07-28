@@ -17,10 +17,28 @@ import { IoLibrarySharp } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutApi } from "../../services/authAPI.jsx";
+import { setUser } from "../../features/user/userSlice.js";
 const Header = () => {
 
   const {user} = useSelector((state)=>state.userInfo)
+  const dispatch = useDispatch()
+
+
+  const handleOnLogout = () => {
+
+        //calling api to logout from the backend
+     logoutApi();
+
+     
+    //logout from frontend
+     sessionStorage.removeItem("accessJWT");
+     localStorage.removeItem("refreshJWT");
+     dispatch(setUser({}))
+
+ 
+  }
   return (
     <Navbar expand="md" className="bg-dark" variant="dark">
       <Container>
@@ -32,8 +50,8 @@ const Header = () => {
             {
               user?._id ? (
                 <>
-                                   <Link className="nav-link" to="/user"> <MdSpaceDashboard /> Dashboard</Link>
-            <Link className="nav-link" to="/"> <CiLogout /> Logout </Link></>
+             <Link className="nav-link" to="/user"> <MdSpaceDashboard /> Dashboard</Link>
+            <Link className="nav-link" to="/" onClick={ handleOnLogout}> <CiLogout /> Logout </Link></>
 
               ) : (
                 <>
