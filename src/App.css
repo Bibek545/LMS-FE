@@ -3,7 +3,7 @@
 }
 
 /* login page */
-.login-page {
+.login-page, .sign-up {
     min-height: 90vh;
     background: url(./assets/login-background.jpg);
     background-size: cover;
@@ -11,4 +11,8 @@
 }
 .login-card {
      background-color: rgba(255, 255, 255, 0.85); /* white with 85% opacity */
+}
+
+.forgot-password {
+    min-height: 90vh;
 }

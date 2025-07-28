@@ -25,7 +25,7 @@ const SignUpPage = () => {
   } 
   console.log(passwordErrors);
   return ( 
-    <div className="d-flex justify-content-center">
+    <div className="sign-up d-flex justify-content-center">
 
         <Form 
         onSubmit = {handleOnSubmit}

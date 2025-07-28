@@ -92,7 +92,9 @@ const SignInPage = () => {
         </Button>
         <br />
         <div className="text-center">
-          Dont't have an account? <a href="/signup">Signup</a> here
+          <p>Forgot Password? <a href="/forgot-password">Reset Now</a></p>
+          <p>Dont't have an account? <a href="/signup">Signup</a> here</p>
+          
         </div>
       </Form>
     </div>

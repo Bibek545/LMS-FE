@@ -1,11 +1,93 @@
-import React from 'react'
+import React, { useRef } from "react";
+import { Alert, Button, Card, Form } from "react-bootstrap";
+import CustomInput from "../../components/customInput/CustomInput.jsx";
+import useForm from "../../hooks/useForm.js";
+
+const initialState = {};
 
 const ForgetPasswordPage = () => {
-  return (
-    <div>
-      <p>I forgot my password.</p>
-    </div>
-  )
-}
+  const emailRef = useRef("");
 
-export default ForgetPasswordPage
+  const { form, setForm, passwordErrors, handleOnChange } =
+    useForm(initialState);
+
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    const email = emailRef.current.value;
+  
+  };
+    console.log(form);
+  return (
+    <div className="forgot-password d-flex justify-content-center align-items-center">
+      <Card style={{ width: "25rem" }}>
+        <Card.Body>
+          <Card.Title>Forgot your password</Card.Title>
+          <p>Enter your email to get the OPT link to reset your password.</p>
+          <hr />
+          <Form onSubmit={handleOnSubmit}>
+            <CustomInput
+              label="Email"
+              name="email"
+              type="email"
+              required
+              placeholder="your email@.com"
+              passRef={emailRef}
+            />
+
+            <div className="d-grid">
+              <Button type="submit">Request OTP</Button>
+            </div>
+          </Form>
+
+          <hr />
+
+          {/* show this form once the OTP is requested */}
+
+          <div>
+            <Alert variant="success">
+              {" "}
+              We have sent OTP in your email. Please check your email and check
+              junk/spam if you dont see the email.
+            </Alert>
+            <Form onSubmit={handleOnSubmit}>
+              <CustomInput
+                label="OTP"
+                name="otp"
+                type="number"
+                required
+                placeholder="0000"
+                onChange={handleOnChange}
+              />
+              <CustomInput
+                label="New Password"
+                name="password"
+                type="password"
+                required
+                placeholder="xxxxxx"
+                onChange={handleOnChange}
+              />
+              <CustomInput
+                label="Confirm Password"
+                name="password"
+                type="password"
+                required
+                placeholder="xxxxxx"
+                onChange={handleOnChange}
+              />
+
+              <div className="d-grid">
+                <Button type="submit">Reset Password</Button>
+              </div>
+            </Form>
+          </div>
+
+          <div className="text-end my-3 text-center">
+            Ready to login? <a href="/login">Login Now</a>
+          </div>
+        </Card.Body>
+      </Card>
+    </div>
+  );
+};
+
+export default ForgetPasswordPage;
