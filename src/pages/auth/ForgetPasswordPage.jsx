@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Alert, Button, Card, Form } from "react-bootstrap";
 import CustomInput from "../../components/customInput/CustomInput.jsx";
 import useForm from "../../hooks/useForm.js";
@@ -7,16 +7,22 @@ const initialState = {};
 
 const ForgetPasswordPage = () => {
   const emailRef = useRef("");
+  const [showPassResetForm, setShowPassResetForm] = useState(false);
 
-  const { form, setForm, passwordErrors, handleOnChange } =
+  const { form, passwordErrors, handleOnChange } =
     useForm(initialState);
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
     const email = emailRef.current.value;
-  
+      console.log(email);
   };
-    console.log(form);
+  // console.log((form))
+
+const handleOnPasswordResetSubmit = (e)=> {
+  e.preventDefault();
+  console.log((form))
+};
   return (
     <div className="forgot-password d-flex justify-content-center align-items-center">
       <Card style={{ width: "25rem" }}>
@@ -39,7 +45,9 @@ const ForgetPasswordPage = () => {
             </div>
           </Form>
 
-          <hr />
+          {
+            showPassResetForm && <>
+                       <hr />
 
           {/* show this form once the OTP is requested */}
 
@@ -49,7 +57,7 @@ const ForgetPasswordPage = () => {
               We have sent OTP in your email. Please check your email and check
               junk/spam if you dont see the email.
             </Alert>
-            <Form onSubmit={handleOnSubmit}>
+            <Form onSubmit={handleOnPasswordResetSubmit}>
               <CustomInput
                 label="OTP"
                 name="otp"
@@ -59,7 +67,7 @@ const ForgetPasswordPage = () => {
                 onChange={handleOnChange}
               />
               <CustomInput
-                label="New Password"
+                label="Password"
                 name="password"
                 type="password"
                 required
@@ -68,18 +76,28 @@ const ForgetPasswordPage = () => {
               />
               <CustomInput
                 label="Confirm Password"
-                name="password"
+                name="confirmPassword"
                 type="password"
                 required
                 placeholder="xxxxxx"
                 onChange={handleOnChange}
               />
+              <div className="py-3">
+                <ul className="text-danger">
+                  {passwordErrors.length > 0 &&
+                    passwordErrors.map((msg) => <li key={msg}>{msg} </li>)}
+                </ul>
+              </div>
 
               <div className="d-grid">
-                <Button type="submit">Reset Password</Button>
+                <Button type="submit" disabled={passwordErrors.length }>Reset Password</Button>
               </div>
             </Form>
           </div>
+            </>
+          }
+
+
 
           <div className="text-end my-3 text-center">
             Ready to login? <a href="/login">Login Now</a>

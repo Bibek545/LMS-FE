@@ -43,7 +43,7 @@ const SignUpPage = () => {
              
               </ul>
             </div>
-          <Button variant="primary" type="submit" disabled={passwordErrors.length}>
+          <Button variant="primary" type="submit" disabled={passwordErrors.length} >
             Submit
           </Button>
           <br />
