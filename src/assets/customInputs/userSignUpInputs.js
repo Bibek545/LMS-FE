@@ -22,8 +22,8 @@ export const singUpINputes = [
   },
   {
     label: " Phone Number",
-    name: "number",
-    type: "Number",
+    name: "phone",
+    type: "text",
     required: false,
     placeholder: "0123456789",
   },
