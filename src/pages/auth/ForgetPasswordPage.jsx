@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { Alert, Button, Card, Form, Spinner } from "react-bootstrap";
 import CustomInput from "../../components/customInput/CustomInput.jsx";
 import useForm from "../../hooks/useForm.js";
-import { requestPassResetOTPApi } from "../../services/authAPI.jsx";
+import { requestPassResetOTPApi, resetPassApi } from "../../services/authAPI.jsx";
+import { useNavigate } from "react-router-dom";
 
 const initialState = {};
 const timToRequestOtpAgain = 30;
 
 const ForgetPasswordPage = () => {
+  const navigate = useNavigate();
   const emailRef = useRef("");
   const [showPassResetForm, setShowPassResetForm] = useState(false); // this is to show the second part of the form
   const [isOtpPending, setOtpPending] = useState(false); //this is for the spinner
@@ -49,9 +51,23 @@ const ForgetPasswordPage = () => {
   };
   // console.log((form))
 
-  const handleOnPasswordResetSubmit = (e) => {
+  const handleOnPasswordResetSubmit = async (e) => {
     e.preventDefault();
-    console.log(form);
+    const email = emailRef.current.value;
+    console.log(email, form);
+    const payload = {
+      email,
+      otp: form.otp,
+      password:form.password,
+    };
+
+    const response = await resetPassApi(payload);
+    if(response?.status==="success") {
+
+      //set timeout and redirec to login in 3s
+      setTimeout(()=> navigate("/login"), 3000)
+
+    };
   };
   return (
     <div className="forgot-password d-flex justify-content-center align-items-center">
@@ -105,7 +121,7 @@ const ForgetPasswordPage = () => {
                     onChange={handleOnChange}
                   />
                   <CustomInput
-                    label="Password"
+                    label="New Password"
                     name="password"
                     type="password"
                     required

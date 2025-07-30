@@ -7,7 +7,7 @@ export const loginInputs = [
         placeholder: "your email@.com",
     },
     {
-        label: "Passwprd",
+        label: "Password",
         name: "password",
         type: "password",
         required: true,
