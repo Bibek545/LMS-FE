@@ -1,0 +1,70 @@
+import { Placeholder } from "react-bootstrap";
+
+export const newBookInputes = [
+  {
+    label: "Title ",
+    name: "title",
+    type: "text",
+    required: true,
+    placeholder: "JavaScript: The Good Parts",
+  },
+  {
+    label: "Year ",
+    name: "publishedYear",
+    type: "Number",
+    min: "1901",
+    max: new Date().getFullYear(),
+    required: true,
+    placeholder: "2022",
+  },
+  {
+    label: "Author ",
+    name: "author",
+    type: "text",
+    required: true,
+    placeholder: "Bibek Hamal",
+  },
+  {
+    label: "Image Url ",
+    name: "thumbnail",
+    type: "url",
+    // required: true,
+    placeholder: "https://myimage.png",
+  },
+  {
+    label: "ISBN ",
+    name: "isbn",
+    type: "number",
+    required: true,
+    placeholder: "0123456789",
+  },
+    {
+    label: "Available ",
+    name: "availability",
+    type: "boolean",
+    required: true,
+    placeholder: "Yes",
+  },
+  {
+    label: "Status ",
+    name: "status",
+    type: "text",
+    required: true,
+    placeholder: "active",
+  },
+  {
+    label: "Genre ",
+    name: "genre",
+    type: "text",
+    required: true,
+    placeholder: "Education",
+  },
+  {
+    label: "Description ",
+    name: "description",
+    type: "text",
+    required: true,
+    placeholder: "Book summary ",
+  },
+];
+ 
