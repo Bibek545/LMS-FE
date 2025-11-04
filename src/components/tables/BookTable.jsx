@@ -56,10 +56,7 @@ const BookTable = () => {
                 <td>{title}</td>
                 <td>
                   {
-                    available && "YES"
-                  }
-                  {
-                    !available && expectedAvailable ? "From: " + expectedAvailable.slice(0,10) : "N/A"
+                    available ? "YES" : !available && expectedAvailable ? "From: " + expectedAvailable.slice(0,10) : "N/A"
                   }
                   </td>
                 <td>
