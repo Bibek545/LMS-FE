@@ -42,7 +42,7 @@ const BookTable = () => {
           </tr>
         </thead>
         <tbody>
-          {displayBook.map(({ _id, status, imgUrl, title, available, expectedAvailable }, i) => (
+          {displayBook.map(({ _id, status, thumbnail, title, available, expectedAvailable }, i) => (
             <tr key={_id}>
               <td>{i + 1}</td>
               <td
@@ -51,7 +51,7 @@ const BookTable = () => {
                 {status}
               </td>
               <td>
-                <img src={imgUrl} alt="" width="100px" />
+                <img src={`${import.meta.env.VITE_BASE_API_URL}/${thumbnail}`} alt="" width="100px" />
                 </td>
                 <td>{title}</td>
                 <td>

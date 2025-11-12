@@ -24,13 +24,13 @@ export const newBookInputes = [
     required: true,
     placeholder: "Bibek Hamal",
   },
-  {
-    label: "Image Url ",
-    name: "thumbnail",
-    type: "url",
-    // required: true,
-    placeholder: "https://myimage.png",
-  },
+  // {
+  //   label: "Image Url ",
+  //   name: "thumbnail",
+  //   type: "url",
+  //   // required: true,
+  //   placeholder: "https://myimage.png",
+  // },
   {
     label: "ISBN ",
     name: "isbn",
