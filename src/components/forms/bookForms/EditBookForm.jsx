@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import CustomInput from "../../customInput/CustomInput";
 import { editBookInputes } from "../../../assets/customInputs/bookInputes";
@@ -11,12 +11,28 @@ import { updateBookAPI } from "../../../features/book/bookApi";
 const initialState = {};
 const EditBookForm = () => {
   const navigate = useNavigate();
+   const [images, setImages] = useState("");
   const { _id } = useParams();
   const { form, setForm, handleOnChange } = useForm(initialState);
   const { books } = useSelector((state) => state.bookInfo);
   // console.log(books);
 
   //    console.log(selectedBook);
+
+   
+  
+    const handleOnImageSelect = (e) => {
+      // console.log(e);
+      const files = [...e.target.files];
+      if(files.length > 2 ) {
+        e.target.value = "";
+        return alert("Only 2 images are allowed")
+      };
+      setImages([...e.target.files]);
+
+    };
+
+
   useEffect(() => {
     if (_id !== form._id) {
       const selectedBook = books.find((book) => book._id === _id);
@@ -37,11 +53,19 @@ const EditBookForm = () => {
       isbn,
       ...rest
     } = form;
-    console.log(rest);
+    // console.log(rest);     
 
-    const result = await updateBookAPI(rest);
+       const formData = new FormData();
+    // console.log(form);
+    for (const key in rest) {
+      // console.log(key, form[key]);
+      formData.append(key, rest[key]);
+     
+    }
+   images.forEach(img =>  formData.append("images", img ));
+
+    const result = await updateBookAPI(formData);
     console.log(result);
-    
   };
   console.log(form);
   return (
@@ -100,7 +124,27 @@ const EditBookForm = () => {
                 Date: {form.updatedAt}
             </div>
         </div> */}
-        <div>
+        <div className="m-3">
+          <img
+            src={`${import.meta.env.VITE_BASE_API_URL}/${form?.thumbnail}`}
+            alt="image"
+            width = "200px"
+          />
+        </div>
+
+                <Form.Group className="mb-3">
+                  <Form.Label>Upload multiple images</Form.Label>
+                  <Form.Control
+                    onChange={handleOnImageSelect}
+                    type="file"
+                    name="image"
+                    required
+                    multiple
+                    accept = "images/*"
+                  ></Form.Control>
+                </Form.Group>
+
+        <div className="mb-3">
           <hr />
           <h4>Additional Info</h4>
           <div>

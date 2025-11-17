@@ -8,7 +8,7 @@ import { postNewBookAction } from "../../../features/book/bookAction";
 const initialState = {};
 const NewBookForm = () => {
   const { form, setForm, handleOnChange } = useForm(initialState);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState("");
 
   const handleOnImageSelect = (e) => {
     // console.log(e);
