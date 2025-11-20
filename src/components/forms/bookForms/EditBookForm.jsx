@@ -11,27 +11,26 @@ import { updateBookAPI } from "../../../features/book/bookApi";
 const initialState = {};
 const EditBookForm = () => {
   const navigate = useNavigate();
-   const [images, setImages] = useState("");
+  // const [images, setImages] = useState("");
+  const [images, setImages] = useState([]);
+
   const { _id } = useParams();
   const { form, setForm, handleOnChange } = useForm(initialState);
   const { books } = useSelector((state) => state.bookInfo);
+  const [imgToDelete, setImgToDelete] = useState([])
   // console.log(books);
 
   //    console.log(selectedBook);
 
-   
-  
-    const handleOnImageSelect = (e) => {
-      // console.log(e);
-      const files = [...e.target.files];
-      if(files.length > 2 ) {
-        e.target.value = "";
-        return alert("Only 2 images are allowed")
-      };
-      setImages([...e.target.files]);
-
-    };
-
+  const handleOnImageSelect = (e) => {
+    // console.log(e);
+    const files = [...e.target.files];
+    if (files.length > 2) {
+      e.target.value = "";
+      return alert("Only 2 images are allowed");
+    }
+    setImages([...e.target.files]);
+  };
 
   useEffect(() => {
     if (_id !== form._id) {
@@ -43,6 +42,9 @@ const EditBookForm = () => {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    if(imgToDelete.includes(form.thumbnail)) {
+      return alert("You can delete the thumbnail image. Please select another thumbnail before proceeding.")
+    };
     const {
       addedBy,
       createdAt,
@@ -53,21 +55,29 @@ const EditBookForm = () => {
       isbn,
       ...rest
     } = form;
-    // console.log(rest);     
+    // console.log(rest);
 
-       const formData = new FormData();
+    const formData = new FormData();
     // console.log(form);
     for (const key in rest) {
       // console.log(key, form[key]);
       formData.append(key, rest[key]);
-     
     }
-   images.forEach(img =>  formData.append("images", img ));
+    images.forEach((img) => formData.append("images", img));
+    imgToDelete.map((img)=> formData.append("imgToDelete", img))
 
     const result = await updateBookAPI(formData);
-    console.log(result);
+    // console.log(result);
   };
-  console.log(form);
+
+  const handleOnImageToDelete = (e) => {
+    const { checked, value } = e.target;
+    console.log(checked, value);
+    checked 
+    ? setImgToDelete([...imgToDelete, value]) 
+    : setImgToDelete(imgToDelete.filter((img) => img !== value)); 
+  };
+  // console.log(imgToDelete);
   return (
     <div className="p-4">
       <h3>Edit book details below</h3>
@@ -124,25 +134,46 @@ const EditBookForm = () => {
                 Date: {form.updatedAt}
             </div>
         </div> */}
-        <div className="m-3">
-          <img
-            src={`${import.meta.env.VITE_BASE_API_URL}/${form?.thumbnail}`}
-            alt="image"
-            width = "200px"
-          />
+        <div className="m-3 d-flex">
+          {form.imageList?.map((img) => (
+            <div key={img} className="m-1 text-center">
+              <Form.Check
+                type="radio"
+                name="thumbnail"
+                value={img}
+                checked={form.thumbnail === img}
+                onChange={handleOnChange}
+                // label={"Thumbnail"}
+              />
+              <Form.Label>Keep this as a thumbnail</Form.Label>
+              <Form.Check
+                type="checkbox"
+                label="Delete"
+                value={img}
+                onChange={handleOnImageToDelete}
+              />{" "}
+              <Form.Label></Form.Label>
+              <img
+                src={`${import.meta.env.VITE_BASE_API_URL}/${img}`}
+                alt="image"
+                width="200px"
+                className="image thumbnail"
+              />
+            </div>
+          ))}
         </div>
 
-                <Form.Group className="mb-3">
-                  <Form.Label>Upload multiple images</Form.Label>
-                  <Form.Control
-                    onChange={handleOnImageSelect}
-                    type="file"
-                    name="image"
-                    required
-                    multiple
-                    accept = "images/*"
-                  ></Form.Control>
-                </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Upload multiple images</Form.Label>
+          <Form.Control
+            onChange={handleOnImageSelect}
+            type="file"
+            name="image"
+            // required
+            multiple
+            accept="images/*"
+          ></Form.Control>
+        </Form.Group>
 
         <div className="mb-3">
           <hr />

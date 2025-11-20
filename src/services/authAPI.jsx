@@ -3,8 +3,8 @@
 
 import { apiProcessor } from "./api";
 
-// const apiBaseUrl = "http://localhost:8000";
-const apiBaseUrl = "https://lms-be-zh0y.onrender.com";
+const apiBaseUrl = "http://localhost:8000";
+// const apiBaseUrl = "https://lms-be-zh0y.onrender.com";
 const authApiEP = apiBaseUrl + "/api/v1/auth";
 
 export const signUpNewUserApi = async (payload) => {
