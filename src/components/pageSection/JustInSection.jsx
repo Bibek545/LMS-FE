@@ -1,8 +1,11 @@
 import React from 'react'
+import SectionTitle from '../sectionTitle/SectionTitle.jsx'
 
 const JustInSection = () => {
   return (
-    <div>JustInSection</div>
+    <div>
+      <SectionTitle title=" Just In!"/>
+    </div>
   )
 }
 

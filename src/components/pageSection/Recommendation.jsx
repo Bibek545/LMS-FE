@@ -1,8 +1,11 @@
 import React from 'react'
+import SectionTitle from '../sectionTitle/SectionTitle.jsx'
 
 const Recommendation = () => {
   return (
-    <div>Recommendation</div>
+    <div>
+      <SectionTitle title=" Recommendation"/>
+    </div>
   )
 }
 

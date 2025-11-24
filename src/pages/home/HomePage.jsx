@@ -11,14 +11,27 @@ const HomePage = () => {
       {/* Hero Section */}
       <CustomCarousel />
 
-      {/* Just in section */}
-      <JustInSection />
+      {/* Just In section */}
+      <div className="d-flex justify-content-center mt-4">
+        <div className="w-75">
+          <JustInSection />
+        </div>
+      </div>
 
-      {/* Best read section */}
-      <BestRead />
+      {/* Best Read section */}
+      <div className="d-flex justify-content-center mt-4">
+        <div className="w-75">
+          <BestRead />
+        </div>
+      </div>
 
-      {/* recommendation section */}
-      <Recommendation />
+      {/* Recommendation section */}
+      <div className="d-flex justify-content-center mt-4">
+        <div className="w-75">
+          <Recommendation />
+        </div>
+      </div>
+
     </div>
   )
 }

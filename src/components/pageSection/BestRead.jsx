@@ -1,8 +1,11 @@
 import React from 'react'
+import SectionTitle from '../sectionTitle/SectionTitle.jsx'
 
 const BestRead = () => {
   return (
-    <div>BestRead</div>
+    <div>
+    <SectionTitle title= " Best Read"/>
+    </div>
   )
 }
 
