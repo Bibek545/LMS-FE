@@ -3,11 +3,13 @@ import CustomCarousel from '../../components/customCarousel/CustomCarousel'
 import JustInSection from '../../components/pageSection/JustInSection'
 import BestRead from '../../components/pageSection/BestRead'
 import Recommendation from '../../components/pageSection/Recommendation'
+import { Col, Container, Row } from 'react-bootstrap'
 
 const HomePage = () => {
   return (
-    <div>
-      <p>My home page</p>
+    <Container className = " mb-4">
+     <Row> 
+      <Col> 
       {/* Hero Section */}
       <CustomCarousel />
 
@@ -31,8 +33,9 @@ const HomePage = () => {
           <Recommendation />
         </div>
       </div>
-
-    </div>
+      </Col>
+</Row>
+    </Container>
   )
 }
 
