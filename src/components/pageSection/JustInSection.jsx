@@ -1,37 +1,46 @@
-import React from 'react'
-import SectionTitle from '../sectionTitle/SectionTitle.jsx'
-import CustomCard from '../customCard/CustomCard.jsx'
+import React from "react";
+import SectionTitle from "../sectionTitle/SectionTitle.jsx";
+import CustomCard from "../customCard/CustomCard.jsx";
+import { useSelector } from "react-redux";
 
 const JustInSection = () => {
+  const { publicBooks } = useSelector((state) => state.bookInfo);
+  console.log("Public books:", publicBooks);
+
+  // Default books = empty array
+  let books = [];
+
+  if (publicBooks && publicBooks.length > 0) {
+    const sorted = [...publicBooks].sort(
+      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+    );
+
+    books = sorted.slice(0, 4); // Show latest 4 books
+  }
+
   return (
-    <div className='mt-5'>
+    <div className="mt-5">
       <SectionTitle title="Just In!" />
 
-      <div className="container">
-        <div className="row justify-content-center">
-
-          <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-            <CustomCard />
-          </div>
-
-          <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-            <CustomCard />
-          </div>
-
-          <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-            <CustomCard />
-          </div>
-
-          <div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
-            <CustomCard />
-          </div>
-
+      <div className="container mt-4">
+        <div className="row">
+          {books.length > 0 ? (
+            books.map((book) => (
+              <div
+                key={book._id}
+                className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
+              >
+                <CustomCard {...book} />
+              </div>
+            ))
+          ) : (
+            <p className="text-center text-muted">No new books available.</p>
+          )}
         </div>
       </div>
     </div>
   );
-}
-
+};  
 export default JustInSection;
 
 // import React from 'react'

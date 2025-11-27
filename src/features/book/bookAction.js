@@ -1,5 +1,5 @@
-import { adminFetchAllBooksApi, postNewBookAPI } from "./bookApi";
-import { setBook } from "../book/bookSlice.js";
+import { adminFetchAllBooksApi, fetchAllPublicBooksApi, postNewBookAPI } from "./bookApi";
+import { setBook, setPublicBook } from "../book/bookSlice.js";
 
 
 
@@ -11,4 +11,9 @@ export const postNewBookAction = async (payload) => {
 export const adminFetchAllBookAction = () =>  async (dispatch) => {
   const {status, payload} = await adminFetchAllBooksApi();
   status === 'success' && dispatch(setBook(payload));
+};
+
+export const fetchAllPublicBooksAction = () =>  async (dispatch) => {
+  const {status, payload} = await fetchAllPublicBooksApi();
+  status === 'success' && dispatch(setPublicBook(payload));
 };
