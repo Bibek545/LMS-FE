@@ -7,21 +7,31 @@ import libraryB from "../../assets/img/libraryB.jpg";
 import libraryC from "../../assets/img/libraryC.jpg";
 
 const CustomCard = ({
-  thumbnail = libraryB,
+  thumbnail,
   title = "The Summer Days",
   author = "Bibek Hamal",
-  year = "2021",
+  publishedYear = "2021",
   slug = "Book Title ",
+  
 }) => {
+    console.log("BASE URL:", import.meta.env.VITE_BASE_API_URL);
+  console.log("THUMBNAIL RECEIVED:", thumbnail);
+
+
+  const baseURL = import.meta.env.VITE_BASE_API_URL;
+  
+
   return (
     <Card style={{ width: "18rem" }}>
         <div className="m-2"> 
-      <Card.Img variant="top" src={thumbnail} className="rounded"/>
+      <Card.Img variant="top" 
+      // src={import.meta.env.VITE_BASE_API_URL + thumbnail}
+         src={`${baseURL}/${thumbnail?.replace(/^\//, "")}`} className="rounded"/>
       </div>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Text>
-          {author} - {year}
+          {author} - {publishedYear}
         </Card.Text>
         <Link to={slug}>
           <Button variant="primary">View Details</Button>

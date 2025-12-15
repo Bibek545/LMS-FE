@@ -36,6 +36,7 @@ const AppRoutes = () => {
         <Route path="activate-user" element={<VerifyUser />}></Route>
         <Route path="login" element={<SignUpPage />}></Route>
         <Route path="forgot-password" element={<ForgetPasswordPage />}></Route>
+        <Route path= "*" element ={<h1>404 page not found</h1>}></Route>
       </Route>
 
       {/* private pages */}

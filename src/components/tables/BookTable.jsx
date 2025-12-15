@@ -51,7 +51,11 @@ const BookTable = () => {
                 {status}
               </td>
               <td>
-                <img src={`${import.meta.env.VITE_BASE_API_URL}/${thumbnail}`} alt="" width="100px" />
+                <img 
+                // src={`${import.meta.env.VITE_BASE_API_URL}/${thumbnail}`} 
+                src={import.meta.env.VITE_BASE_API_URL + thumbnail}
+                alt="" 
+                width="100px" />
                 </td>
                 <td>{title}</td>
                 <td>

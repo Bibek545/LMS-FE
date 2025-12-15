@@ -19,27 +19,25 @@ const JustInSection = () => {
   }
 
   return (
-    <div className="mt-5">
-      <SectionTitle title="Just In!" />
+  <div className="mt-5">
+    <SectionTitle title="Just In!" />
 
-      <div className="container mt-4">
-        <div className="row">
-          {books.length > 0 ? (
-            books.map((book) => (
-              <div
-                key={book._id}
-                className="col-12 col-sm-6 col-md-4 col-lg-3 mb-4"
-              >
-                <CustomCard {...book} />
-              </div>
-            ))
-          ) : (
-            <p className="text-center text-muted">No new books available.</p>
-          )}
-        </div>
+    <div className="container mt-4">
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+        {books.length > 0 ? (
+          books.map((book) => (
+            <div key={book._id} className="col">
+              <CustomCard {...book} />
+            </div>
+          ))
+        ) : (
+          <p className="text-center text-muted">No new books available.</p>
+        )}
       </div>
     </div>
-  );
+  </div>
+);
+
 };  
 export default JustInSection;
 
