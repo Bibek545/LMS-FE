@@ -16,6 +16,8 @@ const CustomCard = ({
 }) => {
     console.log("BASE URL:", import.meta.env.VITE_BASE_API_URL);
   console.log("THUMBNAIL RECEIVED:", thumbnail);
+  console.log("SLUG RECEIVED:", slug);
+
 
 
   const baseURL = import.meta.env.VITE_BASE_API_URL;
@@ -33,7 +35,7 @@ const CustomCard = ({
         <Card.Text>
           {author} - {publishedYear}
         </Card.Text>
-        <Link to={slug}>
+        <Link to={"/book/" +slug}>
           <Button variant="primary">View Details</Button>
         </Link>
       </Card.Body>

@@ -34,3 +34,7 @@
     backdrop-filter: blur(3px);
  }
 /*  end carousel style */
+
+.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
+    content: ">";
+}
