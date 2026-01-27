@@ -1,53 +1,131 @@
 import React, { useEffect, useState } from "react";
-import { Breadcrumb, Col, Container, Row } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import {
+  Alert,
+  Breadcrumb,
+  Button,
+  Col,
+  Container,
+  Row,
+} from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
+import { fetchSinglePublicBooksAction } from "../../features/book/bookAction";
+import { setSelectedBook } from "../../features/book/bookSlice";
+import { FaStar } from "react-icons/fa";
 
 const BookLandingPage = () => {
   const { slug } = useParams();
-  const { publicBooks } = useSelector((state) => state.bookInfo);
+  const { selectedBook } = useSelector((state) => state.bookInfo);
   // const publicBook = useSelector((state) => state.books.publicBook) || [];
   const [book, setBook] = useState({});
+  const dispatch = useDispatch();
+  const[showUrl, setShowUrl] = useState(0)
 
   useEffect(() => {
-    console.log("PARAM slug:", slug);
-    console.log("publicBooks:", publicBooks);
-    console.log(
-      "first book keys:",
-      publicBooks?.[0] && Object.keys(publicBooks[0])
-    );
+    //first approach, locally
 
-    const selectedBook = publicBooks?.find((book) => book.slug === slug);
-    console.log(selectedBook);
-    setBook(selectedBook);
-  }, [publicBooks, slug]);
+    // const selectedBook = publicBooks?.find((book) => book.slug === slug);
+    // console.log(selectedBook);
+    // setBook(selectedBook);
+
+    //secondapproach , fetch from the live server
+    // if (!slug) return;
+
+    dispatch(fetchSinglePublicBooksAction(slug));
+  }, [dispatch, slug]);
+
+  console.log("imageList:", selectedBook?.imageList);
 
   const baseURL = import.meta.env.VITE_BASE_API_URL;
+  // const mainImage = selectedBook?.imageList?.[showUrl] || selectedBook?.thumbnail;
 
   return (
     <Container>
       <Row className="my-3">
         <Col>
-            <Breadcrumb>
-      <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/"}}>Home</Breadcrumb.Item>
-      <Breadcrumb.Item linkAs={Link} linkProps={{to: "/library"}}>
-        Library
-      </Breadcrumb.Item>
-      <Breadcrumb.Item active>{book?.title}</Breadcrumb.Item>
-    </Breadcrumb>
+          <Breadcrumb>
+            <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/" }}>
+              Home
+            </Breadcrumb.Item>
+            <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/library" }}>
+              Library
+            </Breadcrumb.Item>
+            <Breadcrumb.Item active>{selectedBook?.title}</Breadcrumb.Item>
+          </Breadcrumb>
         </Col>
       </Row>
-      <Row>
-        <Col>
-          <div>
-            <img src={`${baseURL}/${book?.thumbnail?.replace(/^\//, "")}`} />
-          </div>
-        </Col>
-        <Col>Book Info section</Col>
-      </Row>
-      <Row>
-        <Col>Bottom section</Col>
-      </Row>
+
+      {!selectedBook?._id && (
+        <Row>
+          <Col>
+            <Alert variant="danger">
+              This book is not available, please contact admin
+            </Alert>
+          </Col>
+        </Row>
+      )}
+      {/* homework add a spinner here */}
+      {selectedBook?._id && (
+        <>
+          <Row>
+            <Col md={5}>
+              <div className="mb-4">
+                <img
+                  // src={`${baseURL}/${mainImage.replace(/^\//, "")}`}
+                  src={`${baseURL}/${selectedBook?.imageList[showUrl].replace(/^\//, "")}`}
+                  alt={selectedBook.title}
+                  // width={"100%"}
+                  className="h-100 w-100 object-fit-contain"
+                />
+              </div>
+              {/* scrollable thumbnails */}
+              <div className="d-flex overflow-auto gap-2 py-3">
+                {selectedBook.imageList?.map((url, i) => (
+                  <img
+                    src={`${baseURL}/${url.replace(/^\//, "")}`}
+                    key={url}
+                    width={"50px"}
+                    className="img-thumbnail"
+                    onClick={()=>setShowUrl(i)}
+                  />
+                ))}
+              </div>
+            </Col>
+            <Col>
+              <div className="d-flex h-100 flex-column justify-content-between">
+                <div className="top">
+                  <h1>{selectedBook.title}</h1>
+                  <div className="fw-bolder">
+                    {selectedBook.author} - {selectedBook.publishedYear}
+                  </div>
+                  <div className="my-3">
+                    <span>{selectedBook.genre}</span> | {""}
+                    <span>
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                      <FaStar />
+                    </span>
+                    {""}
+                    <span>1 reviews</span>
+                  </div>
+                  <div>{selectedBook.description}</div>
+                </div>
+              </div>
+              <div className="bottom">
+                <hr />
+                <div className="d-grid">
+                  <Button variant="dark">Add To Burrowing List</Button>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Row>
+            <Col>Bottom section</Col>
+          </Row>
+        </>
+      )}
     </Container>
   );
 };

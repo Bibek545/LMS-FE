@@ -68,3 +68,14 @@ export const fetchAllPublicBooksApi = async () => {
   const result = await apiProcessor(obj);
   return result; //always return otherwise it will throw error in destructuring
 };
+
+export const fetchSinglePublicBooksApi = async (slug) => {
+  const obj = {
+    url: bookApiEP + "/public/" + slug,
+    method: "get",
+
+  };
+
+  const result = await apiProcessor(obj);
+  return result; //always return otherwise it will throw error in destructuring
+};
