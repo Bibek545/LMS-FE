@@ -11,7 +11,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { fetchSinglePublicBooksAction } from "../../features/book/bookAction";
 import { setSelectedBook } from "../../features/book/bookSlice";
-import { FaStar } from "react-icons/fa";
+import Star from "../../components/star/star";
+
 
 const BookLandingPage = () => {
   const { slug } = useParams();
@@ -72,7 +73,7 @@ const BookLandingPage = () => {
               <div className="mb-4">
                 <img
                   // src={`${baseURL}/${mainImage.replace(/^\//, "")}`}
-                  src={`${baseURL}/${selectedBook?.imageList[showUrl].replace(/^\//, "")}`}
+                  src={`${baseURL}/${selectedBook?.imageList[showUrl]?.replace(/^\//, "")}`}
                   alt={selectedBook.title}
                   // width={"100%"}
                   className="h-100 w-100 object-fit-contain"
@@ -98,17 +99,9 @@ const BookLandingPage = () => {
                   <div className="fw-bolder">
                     {selectedBook.author} - {selectedBook.publishedYear}
                   </div>
-                  <div className="my-3">
-                    <span>{selectedBook.genre}</span> | {""}
-                    <span>
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                      <FaStar />
-                    </span>
-                    {""}
-                    <span>1 reviews</span>
+                  <div className="my-3 d-flex gap-2">
+                    <span>{selectedBook.genre}</span> {""} |
+                     <Star avgRating={5}  totalReviews={58} />
                   </div>
                   <div>{selectedBook.description}</div>
                 </div>
