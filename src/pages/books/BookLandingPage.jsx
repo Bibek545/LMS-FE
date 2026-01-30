@@ -6,13 +6,15 @@ import {
   Col,
   Container,
   Row,
+  Tab,
+  Tabs,
 } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { fetchSinglePublicBooksAction } from "../../features/book/bookAction";
 import { setSelectedBook } from "../../features/book/bookSlice";
 import Star from "../../components/star/star";
-
+import Reviews from "../../components/reviews/Reviews";
 
 const BookLandingPage = () => {
   const { slug } = useParams();
@@ -20,7 +22,7 @@ const BookLandingPage = () => {
   // const publicBook = useSelector((state) => state.books.publicBook) || [];
   const [book, setBook] = useState({});
   const dispatch = useDispatch();
-  const[showUrl, setShowUrl] = useState(0)
+  const [showUrl, setShowUrl] = useState(0);
 
   useEffect(() => {
     //first approach, locally
@@ -87,12 +89,12 @@ const BookLandingPage = () => {
                     key={url}
                     width={"50px"}
                     className="img-thumbnail"
-                    onClick={()=>setShowUrl(i)}
+                    onClick={() => setShowUrl(i)}
                   />
                 ))}
               </div>
             </Col>
-            <Col>
+            {/* <Col>
               <div className="d-flex h-100 flex-column justify-content-between">
                 <div className="top">
                   <h1>{selectedBook.title}</h1>
@@ -101,7 +103,7 @@ const BookLandingPage = () => {
                   </div>
                   <div className="my-3 d-flex gap-2">
                     <span>{selectedBook.genre}</span> {""} |
-                     <Star avgRating={5}  totalReviews={58} />
+                    <Star avgRating={5} totalReviews={58} />
                   </div>
                   <div>{selectedBook.description}</div>
                 </div>
@@ -112,10 +114,51 @@ const BookLandingPage = () => {
                   <Button variant="dark">Add To Burrowing List</Button>
                 </div>
               </div>
+            </Col> */}
+
+            <Col md={7} className="d-flex flex-column">
+              <div>
+                <h1>{selectedBook.title}</h1>
+                <div className="fw-bolder">
+                  {selectedBook.author} - {selectedBook.publishedYear}
+                </div>
+
+                <div className="my-3 d-flex gap-2">
+                  <span>{selectedBook.genre}</span> |{" "}
+                  <Star avgRating={5} totalReviews={58} />
+                </div>
+
+                <div>{selectedBook.description}</div>
+              </div>
+
+              <div className="mt-auto pt-3">
+                <hr />
+                <div className="d-grid">
+                  <Button variant="dark">Add To Burrowing List</Button>
+                </div>
+              </div>
             </Col>
           </Row>
-          <Row>
-            <Col>Bottom section</Col>
+
+          <Row className="mt-5 mb-5">
+            <Col className="border p-3 rounded">
+              <h3 className="margin-auto mt-5 text-center"> More details</h3>
+              <Tabs
+                defaultActiveKey="description"
+                id="uncontrolled-tab-example"
+                className="mb-3"
+              >
+                <Tab eventKey="description" title="Description">
+                  <div>
+                    {selectedBook.description}
+                  </div>
+                </Tab>
+                <Tab eventKey="reviews" title="Reviews">
+                 <Reviews />
+                </Tab>
+
+              </Tabs>
+            </Col>
           </Row>
         </>
       )}
