@@ -1,9 +1,69 @@
-import React from 'react'
+import React from "react";
+import Star from "../star/star";
 
-const Reviews = () => {
+const reviews = [
+  {
+    title: "this is awesome book",
+    rating: 4.5,
+    details:
+      "My name is bibek hamal,My name is bibek hamal,My name is bibek hamal,My name is bibek hamal",
+    createdAt: "22-2-2022",
+    reviewdBy: "Bibek Hamal",
+  },
+  {
+    title: "this is awesome book",
+    rating: 4.5,
+    details:
+      "My name is bibek hamal,My name is bibek hamal,My name is bibek hamal,My name is bibek hamal",
+    createdAt: "22-2-2022",
+    reviewdBy: "Bibek Hamal",
+  },
+  {
+    title: "this is awesome book",
+    rating: 4.5,
+    details:
+      "My name is bibek hamal,My name is bibek hamal,My name is bibek hamal,My name is bibek hamal",
+    createdAt: "22-2-2022",
+    reviewdBy: "Bibek Hamal",
+  },
+  {
+    title: "this is awesome book",
+    rating: 4.5,
+    details:
+      "My name is bibek hamal,My name is bibek hamal,My name is bibek hamal,My name is bibek hamal",
+    createdAt: "22-2-2022",
+    reviewdBy: "Bibek Hamal",
+  },
+];
+const Reviews = ({}) => {
   return (
-    <div>Reviews</div>
-  )
-}
+    <div className="reviews-tab">
+      {reviews.map((r, i) => (
+        <div
+          key={i}
+          className="border rounded p-3 shadow-lg d-flex review-item gap-5"
+        >
+          <div className="left d-flex justify-content-center align-items-center">
+            <div className="d-flex justify-content-center align-items-center fs-1 fw-bold">
+              BH
+            </div>
+          </div>
+          <div className="right">
+            <h3>{r.title}</h3>
+            <div
+              className="
+            d-flex gap-3"
+            >
+              <Star avgRating={r.rating} /> <span>4 years ago</span>
+            </div>
 
-export default Reviews
+            <p>{r.details}</p>
+            <div className="text-end"> {r.reviewdBy}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Reviews;

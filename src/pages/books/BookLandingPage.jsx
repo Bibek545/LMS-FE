@@ -144,7 +144,7 @@ const BookLandingPage = () => {
             <Col className="border p-3 rounded">
               <h3 className="margin-auto mt-5 text-center"> More details</h3>
               <Tabs
-                defaultActiveKey="description"
+                defaultActiveKey="reviews"
                 id="uncontrolled-tab-example"
                 className="mb-3"
               >
