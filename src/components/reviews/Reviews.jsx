@@ -1,5 +1,6 @@
 import React from "react";
 import Star from "../star/star";
+import { formatDistance, formatDistanceToNow, subDays } from "date-fns";
 
 const reviews = [
   {
@@ -7,7 +8,7 @@ const reviews = [
     rating: 4.5,
     details:
       "My name is bibek hamal,My name is bibek hamal,My name is bibek hamal,My name is bibek hamal",
-    createdAt: "22-2-2022",
+    createdAt: "2026-1-22",
     reviewdBy: "Bibek Hamal",
   },
   {
@@ -15,7 +16,7 @@ const reviews = [
     rating: 4.5,
     details:
       "My name is bibek hamal,My name is bibek hamal,My name is bibek hamal,My name is bibek hamal",
-    createdAt: "22-2-2022",
+    createdAt: "2022-2-22",
     reviewdBy: "Bibek Hamal",
   },
   {
@@ -23,7 +24,7 @@ const reviews = [
     rating: 4.5,
     details:
       "My name is bibek hamal,My name is bibek hamal,My name is bibek hamal,My name is bibek hamal",
-    createdAt: "22-2-2022",
+    createdAt: "2022-2-22",
     reviewdBy: "Bibek Hamal",
   },
   {
@@ -31,7 +32,7 @@ const reviews = [
     rating: 4.5,
     details:
       "My name is bibek hamal,My name is bibek hamal,My name is bibek hamal,My name is bibek hamal",
-    createdAt: "22-2-2022",
+    createdAt: "2022-2-22",
     reviewdBy: "Bibek Hamal",
   },
 ];
@@ -54,7 +55,9 @@ const Reviews = ({}) => {
               className="
             d-flex gap-3"
             >
-              <Star avgRating={r.rating} /> <span>4 years ago</span>
+              <Star avgRating={r.rating} /> <span>
+                {formatDistanceToNow(new Date(r.createdAt), { addSuffix: true })}
+              </span>
             </div>
 
             <p>{r.details}</p>
