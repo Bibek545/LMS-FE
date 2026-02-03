@@ -50,8 +50,8 @@ const BookLandingPage = () => {
             <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/" }}>
               Home
             </Breadcrumb.Item>
-            <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/library" }}>
-              Library
+            <Breadcrumb.Item linkAs={Link} linkProps={{ to: "/all-books" }}>
+              All Books
             </Breadcrumb.Item>
             <Breadcrumb.Item active>{selectedBook?.title}</Breadcrumb.Item>
           </Breadcrumb>

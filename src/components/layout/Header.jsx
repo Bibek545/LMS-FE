@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // icons
 import { IoHomeOutline } from "react-icons/io5";
@@ -13,6 +13,7 @@ import { PiSignInLight } from "react-icons/pi";
 import { IoLibrarySharp } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
+import { ImBooks } from "react-icons/im";
 
 import { useDispatch, useSelector } from "react-redux";
 import { logoutApi } from "../../services/authAPI.jsx";
@@ -21,6 +22,9 @@ import { Form, InputGroup } from "react-bootstrap";
 const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
+  const searchRef = useRef("");
+  const navigate = useNavigate();
+
 
   const handleOnLogout = () => {
     //calling api to logout from the backend
@@ -31,6 +35,14 @@ const Header = () => {
     localStorage.removeItem("refreshJWT");
     dispatch(setUser({}));
   };
+
+  const handleOnSearch = (e)=> {
+    e.preventDefault()
+    const str = searchRef.current.value
+    str && navigate("/search?query=" + str)
+    // console.log(searchRef.current.value)
+  };
+
   return (
     <Navbar expand="md" className="bg-dark" variant="dark">
       <Container>
@@ -41,50 +53,57 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <div className="d-flex w-100 justify-content-between flex-column flex-md-row">
-
-   
-          <div>
-            
+            <div></div>
+            <Form style={{ width: "40%" }} onSubmit={handleOnSearch}>
+              <InputGroup className="">
+                <Form.Control
+                  placeholder="Book title"
+                  aria-label="Recipient's username"
+                  aria-describedby="basic-addon2"
+                  name="s"
+                  ref={searchRef}
+                  
+                />
+                <InputGroup.Text id="basic-addon2"
+                onClick={handleOnSearch}
+                as="button"
+                >
+                  <CiSearch />
+                </InputGroup.Text>
+              </InputGroup>
+            </Form>
+            <Nav className=" ">
+              <Link className="nav-link" to="/">
+                <IoHomeOutline /> Home
+              </Link>
+              <Link className="nav-link" to="/all-books">
+                <ImBooks /> Books
+              </Link>
+              {user?._id ? (
+                <>
+                  <Link className="nav-link" to="/user">
+                    {" "}
+                    <MdSpaceDashboard /> Dashboard
+                  </Link>
+                  <Link className="nav-link" to="/" onClick={handleOnLogout}>
+                    {" "}
+                    <CiLogout /> Logout{" "}
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link className="nav-link" to="/signup">
+                    {" "}
+                    <PiSignInLight /> Sign Up
+                  </Link>
+                  <Link className="nav-link" to="/login">
+                    {" "}
+                    <CiLogin /> Login
+                  </Link>
+                </>
+              )}
+            </Nav>
           </div>
-          <Form style={{ width: "40%"}}>
-            <InputGroup className="">
-              <Form.Control
-                placeholder="Book title"
-                aria-label="Recipient's username"
-                aria-describedby="basic-addon2"
-              />
-              <InputGroup.Text id="basic-addon2"><CiSearch /></InputGroup.Text>
-            </InputGroup>
-          </Form>
-          <Nav className=" ">
-            <Link className="nav-link" to="/">
-              <IoHomeOutline /> Home
-            </Link>
-            {user?._id ? (
-              <>
-                <Link className="nav-link" to="/user">
-                  {" "}
-                  <MdSpaceDashboard /> Dashboard
-                </Link>
-                <Link className="nav-link" to="/" onClick={handleOnLogout}>
-                  {" "}
-                  <CiLogout /> Logout{" "}
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link className="nav-link" to="/signup">
-                  {" "}
-                  <PiSignInLight /> Sign Up
-                </Link>
-                <Link className="nav-link" to="/login">
-                  {" "}
-                  <CiLogin /> Login
-                </Link>
-              </>
-            )}
-          </Nav>
-                 </div>
         </Navbar.Collapse>
       </Container>
     </Navbar>

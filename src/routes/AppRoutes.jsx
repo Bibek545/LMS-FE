@@ -21,6 +21,8 @@ import {
 
 } from "../pages";
 import UserLayout from "../components/layout/UserLayout";
+import AllBooks from "../pages/books/AllBooks";
+import Search from "../pages/books/Search";
 
 // import SignInPage from '../pages/auth/SignInPage';
 // import HomePage from "../pages/home/HomePage.jsx"
@@ -32,6 +34,8 @@ const AppRoutes = () => {
       {/* public pages */}
       <Route path="/" element={<DefaultLayout />}>
         <Route index element={<HomePage />}></Route>
+        <Route path="all-books" element={<AllBooks />} />
+        <Route path="search" element={<Search />} />
         <Route path="book/:slug" element = { <BookLandingPage />}></Route>
         <Route path="signup" element={<SignInPage />}></Route>
         <Route path="activate-user" element={<VerifyUser />}></Route>
