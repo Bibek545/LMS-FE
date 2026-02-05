@@ -23,6 +23,7 @@ import {
 import UserLayout from "../components/layout/UserLayout";
 import AllBooks from "../pages/books/AllBooks";
 import Search from "../pages/books/Search";
+import Cart from "../components/cart/Cart";
 
 // import SignInPage from '../pages/auth/SignInPage';
 // import HomePage from "../pages/home/HomePage.jsx"
@@ -41,6 +42,7 @@ const AppRoutes = () => {
         <Route path="activate-user" element={<VerifyUser />}></Route>
         <Route path="login" element={<SignUpPage />}></Route>
         <Route path="forgot-password" element={<ForgetPasswordPage />}></Route>
+        <Route path="/cart" element={<Cart />}></Route>
         <Route path= "*" element ={<h1>404 page not found</h1>}></Route>
       </Route>
 

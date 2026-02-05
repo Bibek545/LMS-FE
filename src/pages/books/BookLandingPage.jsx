@@ -140,7 +140,7 @@ const BookLandingPage = () => {
               <div className="mt-auto pt-3">
                 <hr />
                 <div className="d-grid">
-                  <Button variant="dark" onClick={handleOnAddCart}>
+                  <Button variant="dark" onClick={handleOnAddCart} disabled={isBookInCart}>
                     {isBookInCart ? "Already in Cart" : "Add To Burrowing List"}
                   </Button>
                 </div>
