@@ -14,6 +14,7 @@ import { IoLibrarySharp } from "react-icons/io5";
 import { MdSpaceDashboard } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
 import { ImBooks } from "react-icons/im";
+import { CiShoppingCart } from "react-icons/ci";
 
 import { useDispatch, useSelector } from "react-redux";
 import { logoutApi } from "../../services/authAPI.jsx";
@@ -21,6 +22,8 @@ import { setUser } from "../../features/user/userSlice.js";
 import { Form, InputGroup } from "react-bootstrap";
 const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
+  const { cart } = useSelector((state) => state.bookInfo);
+
   const dispatch = useDispatch();
   const searchRef = useRef("");
   const navigate = useNavigate();
@@ -102,6 +105,10 @@ const Header = () => {
                   </Link>
                 </>
               )}
+              <Link to = "/cart" className="nav-link position-relative">
+                <div className="cart-count position-absolute">{cart.length} </div>
+                <CiShoppingCart className="fs-3"/>
+              </Link>
             </Nav>
           </div>
         </Navbar.Collapse>

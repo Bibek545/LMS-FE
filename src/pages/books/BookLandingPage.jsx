@@ -12,13 +12,13 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { fetchSinglePublicBooksAction } from "../../features/book/bookAction";
-import { setSelectedBook } from "../../features/book/bookSlice";
+import { setCart, setSelectedBook } from "../../features/book/bookSlice";
 import Star from "../../components/star/star";
 import Reviews from "../../components/reviews/Reviews";
 
 const BookLandingPage = () => {
   const { slug } = useParams();
-  const { selectedBook } = useSelector((state) => state.bookInfo);
+  const { selectedBook, cart } = useSelector((state) => state.bookInfo);
   // const publicBook = useSelector((state) => state.books.publicBook) || [];
   const [book, setBook] = useState({});
   const dispatch = useDispatch();
@@ -37,11 +37,17 @@ const BookLandingPage = () => {
     dispatch(fetchSinglePublicBooksAction(slug));
   }, [dispatch, slug]);
 
+  const handleOnAddCart = (e) => {
+    e.preventDefault()
+
+    dispatch(setCart(selectedBook));
+  };
   console.log("imageList:", selectedBook?.imageList);
 
   const baseURL = import.meta.env.VITE_BASE_API_URL;
   // const mainImage = selectedBook?.imageList?.[showUrl] || selectedBook?.thumbnail;
 
+  const isBookInCart = cart.find((item) => item._id === selectedBook._id);
   return (
     <Container>
       <Row className="my-3">
@@ -134,7 +140,9 @@ const BookLandingPage = () => {
               <div className="mt-auto pt-3">
                 <hr />
                 <div className="d-grid">
-                  <Button variant="dark">Add To Burrowing List</Button>
+                  <Button variant="dark" onClick={handleOnAddCart}>
+                    {isBookInCart ? "Already in Cart" : "Add To Burrowing List"}
+                  </Button>
                 </div>
               </div>
             </Col>
@@ -149,14 +157,11 @@ const BookLandingPage = () => {
                 className="mb-3"
               >
                 <Tab eventKey="description" title="Description">
-                  <div>
-                    {selectedBook.description}
-                  </div>
+                  <div>{selectedBook.description}</div>
                 </Tab>
                 <Tab eventKey="reviews" title="Reviews">
-                 <Reviews />
+                  <Reviews />
                 </Tab>
-
               </Tabs>
             </Col>
           </Row>
