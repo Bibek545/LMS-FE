@@ -7,11 +7,12 @@ import CustomCard, {
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "react-bootstrap/Pagination";
 import CustomPagination from "../../components/customPagination/CustomPagination";
-import { removeBookFromCart } from "../../features/book/bookSlice";
+import { removeBookFromCart } from "./cartSlice";
 
 const Cart = () => {
   const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.bookInfo);
+  const { cart } = useSelector((state) => state.cartInfo);
+  const { user } = useSelector((state) => state.userInfo);
   const baseURL = import.meta.env.VITE_BASE_API_URL;
 
   const handleOnBookRemove = (_id) => {
@@ -19,6 +20,12 @@ const Cart = () => {
 
     console.log(_id);
   };
+
+  const handleOnBurrow = ()=> {
+    if(confirm("Are you sure you want to burrow the books?")){
+// dddddd
+    } 
+  }
 
   return (
     <Container>
@@ -28,7 +35,7 @@ const Cart = () => {
           <div>
             <Table striped bordered hover>
               <tbody>
-                {cart.map((book) => (
+                {cart?.map((book) => (
                   <tr key={book._id}>
                     <td>
                       <img
@@ -52,9 +59,15 @@ const Cart = () => {
               </tbody>
             </Table>
 
-            {cart.length > 0 ? (
+            {cart?.length > 0 ? (
               <div className="text-end">
-                <Button> Login To Burrow</Button>
+                {user._id ? (
+                  <Button variant="secondary"> Proceed To Burrow</Button>
+                ) : (
+                  <Link to="/login" state={{from:"/cart"}}>
+                    <Button variant="secondary" onClick={handleOnBurrow}>Login to Burrow</Button>
+                  </Link>
+                )}
               </div>
             ) : (
               <Alert variant="info">No books in the cart</Alert>

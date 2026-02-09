@@ -22,7 +22,7 @@ import { setUser } from "../../features/user/userSlice.js";
 import { Form, InputGroup } from "react-bootstrap";
 const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
-  const { cart } = useSelector((state) => state.bookInfo);
+  const { cart } = useSelector((state) => state.cartInfo);
 
   const dispatch = useDispatch();
   const searchRef = useRef("");

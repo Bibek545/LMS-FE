@@ -12,13 +12,15 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { fetchSinglePublicBooksAction } from "../../features/book/bookAction";
-import { setCart, setSelectedBook } from "../../features/book/bookSlice";
+import { setSelectedBook } from "../../features/book/bookSlice";
 import Star from "../../components/star/star";
 import Reviews from "../../components/reviews/Reviews";
+import { setCart } from "../../components/cart/cartSlice";
 
 const BookLandingPage = () => {
   const { slug } = useParams();
-  const { selectedBook, cart } = useSelector((state) => state.bookInfo);
+  const { selectedBook } = useSelector((state) => state.bookInfo);
+  const { cart } = useSelector((state) => state.cartInfo);
   // const publicBook = useSelector((state) => state.books.publicBook) || [];
   const [book, setBook] = useState({});
   const dispatch = useDispatch();

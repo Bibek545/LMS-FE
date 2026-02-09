@@ -7,14 +7,17 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 //for react-bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
-import store from './redux/store.jsx'
+import store, { persistor } from './redux/store.jsx'
+import { PersistGate } from 'redux-persist/integration/react'
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
+      </PersistGate>
     </Provider>
   </StrictMode>
 );
