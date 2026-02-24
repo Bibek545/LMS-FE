@@ -46,7 +46,7 @@ const Cart = () => {
       // 2.clear the cart after burrowing
       dispatch(resetCart());
       //3. send them to a thank you page
-      navigate("/thank-you")
+      navigate("/user/thank-you")
     }
   };
 
