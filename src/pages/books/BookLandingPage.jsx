@@ -16,6 +16,7 @@ import { setSelectedBook } from "../../features/book/bookSlice";
 import Star from "../../components/star/star";
 import Reviews from "../../components/reviews/Reviews";
 import { setCart } from "../../components/cart/cartSlice";
+import { toast } from "react-toastify";
 
 const BookLandingPage = () => {
   const { slug } = useParams();
@@ -39,9 +40,9 @@ const BookLandingPage = () => {
     dispatch(fetchSinglePublicBooksAction(slug));
   }, [dispatch, slug]);
 
-  const handleOnAddCart = (e) => {
-    e.preventDefault()
-
+  const handleOnAddCart = () => {
+    
+    toast("Book is added in the cart")
     dispatch(setCart(selectedBook));
   };
   console.log("imageList:", selectedBook?.imageList);

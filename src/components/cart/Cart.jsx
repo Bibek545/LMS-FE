@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import { Alert, Button, Col, Container, Row, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomCard, {
   CustomListCard,
 } from "../../components/customCard/CustomCard";
 import { useDispatch, useSelector } from "react-redux";
 import Pagination from "react-bootstrap/Pagination";
 import CustomPagination from "../../components/customPagination/CustomPagination";
-import { removeBookFromCart } from "./cartSlice";
+import { removeBookFromCart, resetCart, setRecentBurrow } from "./cartSlice";
+// import { postBurrowApi } from "../../features/cart/cartApi.js";
+import { toast } from "react-toastify";
+import { postBurrowApi } from "../../features/cart/cartApi";
 
 const Cart = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { cart } = useSelector((state) => state.cartInfo);
   const { user } = useSelector((state) => state.userInfo);
   const baseURL = import.meta.env.VITE_BASE_API_URL;
@@ -21,11 +25,30 @@ const Cart = () => {
     console.log(_id);
   };
 
-  const handleOnBurrow = ()=> {
-    if(confirm("Are you sure you want to burrow the books?")){
-// dddddd
-    } 
-  }
+  const handleOnBurrow = async () => {
+    if (confirm("Are you sure you want to burrow the books?")) {
+      // dddddd
+      const bookArg = cart.map(({ _id, title, thumbnail }) => {
+        return {
+          bookId: _id,
+          bookTitle: title,
+          thumbnail,
+        };
+      });
+      const pending = postBurrowApi(bookArg);
+      toast.promise(pending, {
+        pending: "Processing your burrow request",
+      });
+      const { status, message, payload } = await pending;
+      toast[status](message);
+      // 1. store the payload coming from the server
+      dispatch(setRecentBurrow(payload));
+      // 2.clear the cart after burrowing
+      dispatch(resetCart());
+      //3. send them to a thank you page
+      navigate("/thank-you")
+    }
+  };
 
   return (
     <Container>
@@ -62,10 +85,15 @@ const Cart = () => {
             {cart?.length > 0 ? (
               <div className="text-end">
                 {user._id ? (
-                  <Button variant="secondary"> Proceed To Burrow</Button>
+                  <Button variant="secondary" onClick={handleOnBurrow}>
+                    {" "}
+                    Proceed To Burrow
+                  </Button>
                 ) : (
-                  <Link to="/login" state={{from:"/cart"}}>
-                    <Button variant="secondary" onClick={handleOnBurrow}>Login to Burrow</Button>
+                  <Link to="/login" state={{ from: "/cart" }}>
+                    <Button variant="secondary" onClick={handleOnBurrow}>
+                      Login to Burrow
+                    </Button>
                   </Link>
                 )}
               </div>
