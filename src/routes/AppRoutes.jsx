@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import DefaultLayout from "../components/layout/DefaultLayout";
 import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
@@ -24,12 +24,15 @@ import AllBooks from "../pages/books/AllBooks";
 import Search from "../pages/books/Search";
 import Cart from "../components/cart/Cart";
 import ThankYou from "../pages/dashboard/ThankyouPage";
+import { useSelector } from "react-redux";
 
 // import SignInPage from '../pages/auth/SignInPage';
 // import HomePage from "../pages/home/HomePage.jsx"
 // import DashboardPage from "../pages/dashboard/DashboardPage.jsx"
-
+const noAccess = < h1> You dont have permission to access this page</h1>
 const AppRoutes = () => {
+  const { user } = useSelector((state) => state.userInfo);
+  const isAdmin = user.role === "admin";
   return (
     <Routes>
       {/* public pages */}
@@ -48,15 +51,21 @@ const AppRoutes = () => {
 
       {/* private pages */}
       <Route path="/user" element={<UserLayout />}>
+        {/* all users */}
         <Route index element={<DashboardPage />}></Route>
-        <Route path="books" element={<Books />}></Route>
-        <Route path="new-book" element={<NewBookPage />}></Route>
-        <Route path="edit-book/:_id" element={<EditBookPage />}></Route>
-        <Route path="reviews" element={<ReviewPage />}></Route>
-        <Route path="all" element={<UserPage />}></Route>
-        <Route path="borrow-history" element={<BorrowPage />}></Route>
+        <Route path="my-borrow" element={<BorrowPage />}></Route>
         <Route path="profile" element={<Profile />}></Route>
         <Route path="thank-you" element={<ThankYou />}></Route>
+
+        {/* only admin access pages  */}
+        <Route path="books" element={ isAdmin ? <Books /> : noAccess }></Route>
+        <Route path="new-book" element={isAdmin ? <NewBookPage /> : noAccess}></Route>
+        <Route path="edit-book/:_id" element={ isAdmin ? <EditBookPage /> : noAccess }></Route>
+        <Route path="borrow-history" element={isAdmin ? <BorrowPage /> : noAccess }></Route>
+        <Route path="all" element={isAdmin ? <UserPage /> : noAccess}></Route>
+        <Route path="reviews" element={isAdmin ? <ReviewPage/> : noAccess}></Route>
+
+
       </Route>
     </Routes>
   );
