@@ -53,7 +53,7 @@ const AppRoutes = () => {
       <Route path="/user" element={<UserLayout />}>
         {/* all users */}
         <Route index element={<DashboardPage />}></Route>
-        <Route path="my-borrow" element={<BorrowPage />}></Route>
+        <Route path="my-borrow" element={<BorrowPage isAdmin={false}/>}></Route>
         <Route path="profile" element={<Profile />}></Route>
         <Route path="thank-you" element={<ThankYou />}></Route>
 
@@ -61,7 +61,7 @@ const AppRoutes = () => {
         <Route path="books" element={ isAdmin ? <Books /> : noAccess }></Route>
         <Route path="new-book" element={isAdmin ? <NewBookPage /> : noAccess}></Route>
         <Route path="edit-book/:_id" element={ isAdmin ? <EditBookPage /> : noAccess }></Route>
-        <Route path="borrow-history" element={isAdmin ? <BorrowPage /> : noAccess }></Route>
+        <Route path="borrow-history" element={isAdmin ? <BorrowPage isAdmin={true} /> : noAccess }></Route>
         <Route path="all" element={isAdmin ? <UserPage /> : noAccess}></Route>
         <Route path="reviews" element={isAdmin ? <ReviewPage/> : noAccess}></Route>
 

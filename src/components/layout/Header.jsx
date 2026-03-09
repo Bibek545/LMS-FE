@@ -20,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logoutApi } from "../../services/authAPI.jsx";
 import { setUser } from "../../features/user/userSlice.js";
 import { Form, InputGroup } from "react-bootstrap";
+import { setAllBorrows, setMyBorrows } from "../../features/borrow/borrowSlice.js";
 const Header = () => {
   const { user } = useSelector((state) => state.userInfo);
   const { cart } = useSelector((state) => state.cartInfo);
@@ -37,6 +38,8 @@ const Header = () => {
     sessionStorage.removeItem("accessJWT");
     localStorage.removeItem("refreshJWT");
     dispatch(setUser({}));
+    dispatch(setMyBorrows([]));
+    dispatch(setAllBorrows([]));
   };
 
   const handleOnSearch = (e)=> {

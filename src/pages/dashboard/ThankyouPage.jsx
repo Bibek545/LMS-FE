@@ -37,7 +37,7 @@ const ThankYou = () => {
         <p className="mb-4">Please return your books before the due date.</p>
 
         <div className="mb-4">
-          <Link to="/user/burrow-history">See your burrowing history</Link>
+          <Link to="/user/my-borrow">See your burrowing history</Link>
         </div>
       </div>
 
