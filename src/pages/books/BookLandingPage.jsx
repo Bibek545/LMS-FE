@@ -41,8 +41,7 @@ const BookLandingPage = () => {
   }, [dispatch, slug]);
 
   const handleOnAddCart = () => {
-    
-    toast("Book is added in the cart")
+    toast("Book is added in the cart");
     dispatch(setCart(selectedBook));
   };
   console.log("imageList:", selectedBook?.imageList);
@@ -143,8 +142,16 @@ const BookLandingPage = () => {
               <div className="mt-auto pt-3">
                 <hr />
                 <div className="d-grid">
-                  <Button variant="dark" onClick={handleOnAddCart} disabled={isBookInCart}>
-                    {isBookInCart ? "Already in Cart" : "Add To Burrowing List"}
+                  <Button
+                    variant="dark"
+                    onClick={handleOnAddCart}
+                    disabled={selectedBook.expectedAvailable ||isBookInCart}
+                  >
+                    {selectedBook.expectedAvailable
+                      ? `Expected Avaialble on: ${selectedBook.expectedAvailable.slice(0, 10)}`
+                      : isBookInCart
+                        ? "Already in Cart"
+                        : "Add To Burrowing List"}
                   </Button>
                 </div>
               </div>

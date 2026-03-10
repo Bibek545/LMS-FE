@@ -28,11 +28,13 @@ const Cart = () => {
   const handleOnBurrow = async () => {
     if (confirm("Are you sure you want to burrow the books?")) {
       // dddddd
-      const bookArg = cart.map(({ _id, title, thumbnail }) => {
+      const bookArg = cart.map(({ _id, title, thumbnail, slug }) => {
         return {
           bookId: _id,
           bookTitle: title,
           thumbnail,
+          bookSlug: slug,
+          
         };
       });
       const pending = postBurrowApi(bookArg);
