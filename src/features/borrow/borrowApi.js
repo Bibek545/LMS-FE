@@ -17,3 +17,16 @@ export const fetchAllBorrowsApi = async (isAdmin) => {
   const result = await apiProcessor(obj);
   return result; //always return otherwise it will throw error in destructuring
 };
+
+export const patchReturnBorrowApi = async (payload) => {
+  const obj = {
+    url: borrowApiEP,
+    method: "patch",
+    payload,
+    // showToast: true,
+    isPrivateCall: true,
+  };
+
+  const result = await apiProcessor(obj);
+  return result; //always return otherwise it will throw error in destructuring
+};

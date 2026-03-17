@@ -223,7 +223,7 @@ import { Button, Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { getAllBorrowAction } from "../../features/borrow/borrowAction";
+import { getAllBorrowAction, returnBorrowAction } from "../../features/borrow/borrowAction";
 
 const BorrowTable = ({ isAdmin }) => {
   const dispatch = useDispatch();
@@ -238,6 +238,12 @@ const BorrowTable = ({ isAdmin }) => {
   }, [dispatch, isAdmin]);
 
   const handleOnSearch = () => {};
+
+  const handleOnBooReturn = (_id) => {
+    if(confirm("Are you sure you want to return this book?")){
+      dispatch(returnBorrowAction({_id}));
+    }
+  };
 
   return (
     <div>
@@ -312,7 +318,8 @@ const BorrowTable = ({ isAdmin }) => {
               {!pathname.includes("/borrow-history") && (
                 <td>
                   {!row.isReturned && (
-                    <Button variant="warning">Return book</Button>
+                    <Button variant="warning"
+                    onClick={()=> handleOnBooReturn(row._id)}>Return book</Button>
                   )}
                   {row.isReturned && (
                     <Button variant="success">Leave Review</Button>
