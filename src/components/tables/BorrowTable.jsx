@@ -199,7 +199,7 @@
 //                         </Button>
 //                       )}
 //                       {/* <Link to={"/user/edit-book/" + _id}>
-                     
+
 //                       </Link>{" "} */}
 //                       {isReturned && !reviewId && (
 //                         <Button variant="warning">Leave Review</Button>
@@ -223,8 +223,15 @@ import { Button, Form } from "react-bootstrap";
 import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { getAllBorrowAction, returnBorrowAction } from "../../features/borrow/borrowAction";
-import { setModalShow } from "../../features/system/systemSlice";
+import {
+  getAllBorrowAction,
+  returnBorrowAction,
+} from "../../features/borrow/borrowAction";
+import {
+  setModalContent,
+  setModalShow,
+} from "../../features/system/systemSlice";
+import NewReviewForm from "../forms/reviewForm/newReviewForm";
 
 const BorrowTable = ({ isAdmin }) => {
   const dispatch = useDispatch();
@@ -241,14 +248,15 @@ const BorrowTable = ({ isAdmin }) => {
   const handleOnSearch = () => {};
 
   const handleOnBooReturn = (_id) => {
-    if(confirm("Are you sure you want to return this book?")){
-      dispatch(returnBorrowAction({_id}));
+    if (confirm("Are you sure you want to return this book?")) {
+      dispatch(returnBorrowAction({ _id }));
     }
   };
-  
+
   const handleOnReview = () => {
-    dispatch(setModalShow(true))
-  }
+    dispatch(setModalContent({ content: <NewReviewForm />, title: <h3>Leave your review</h3> }));
+    dispatch(setModalShow(true));
+  };
   return (
     <div>
       <div className="d-flex justify-content-between mb-4">
@@ -322,11 +330,17 @@ const BorrowTable = ({ isAdmin }) => {
               {!pathname.includes("/borrow-history") && (
                 <td>
                   {!row.isReturned && (
-                    <Button variant="warning"
-                    onClick={()=> handleOnBooReturn(row._id)}>Return book</Button>
+                    <Button
+                      variant="warning"
+                      onClick={() => handleOnBooReturn(row._id)}
+                    >
+                      Return book
+                    </Button>
                   )}
                   {row.isReturned && (
-                    <Button variant="success" onClick={handleOnReview}>Leave Review</Button>
+                    <Button variant="success" onClick={handleOnReview}>
+                      Leave Review
+                    </Button>
                   )}
                 </td>
               )}

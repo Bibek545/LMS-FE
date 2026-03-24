@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { fetchSinglePublicBooksAction } from "../../features/book/bookAction";
 import { setSelectedBook } from "../../features/book/bookSlice";
-import Star from "../../components/star/star";
+import Star from "../../components/star/Star";
 import Reviews from "../../components/reviews/Reviews";
 import { setCart } from "../../components/cart/cartSlice";
 import { toast } from "react-toastify";
