@@ -1,5 +1,5 @@
 import React from "react";
-import Star from "../star/star";
+import Star from "../star/Star";
 import { formatDistanceToNow } from "date-fns";
 
 const reviews = [
