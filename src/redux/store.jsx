@@ -3,6 +3,7 @@ import userReducer from "../features/user/userSlice.js";
 import bookReducer from "../features/book/bookSlice.js";
 import cartReducer from "../components/cart/cartSlice.js";
 import borrowReducer from "../features/borrow/borrowSlice.js"
+import systemReducer from '../features/system/systemSlice.js'
 
 
 import { persistStore, persistReducer } from "redux-persist";
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   bookInfo: bookReducer,
   cartInfo: persistReducer(cartPersistConfig, cartReducer),
   borrowInfo: borrowReducer,
+  systemInfo: systemReducer,
 });
 const store = configureStore({
   reducer: rootReducer,

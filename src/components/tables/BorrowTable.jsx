@@ -224,6 +224,7 @@ import Table from "react-bootstrap/Table";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { getAllBorrowAction, returnBorrowAction } from "../../features/borrow/borrowAction";
+import { setModalShow } from "../../features/system/systemSlice";
 
 const BorrowTable = ({ isAdmin }) => {
   const dispatch = useDispatch();
@@ -244,7 +245,10 @@ const BorrowTable = ({ isAdmin }) => {
       dispatch(returnBorrowAction({_id}));
     }
   };
-
+  
+  const handleOnReview = () => {
+    dispatch(setModalShow(true))
+  }
   return (
     <div>
       <div className="d-flex justify-content-between mb-4">
@@ -322,7 +326,7 @@ const BorrowTable = ({ isAdmin }) => {
                     onClick={()=> handleOnBooReturn(row._id)}>Return book</Button>
                   )}
                   {row.isReturned && (
-                    <Button variant="success">Leave Review</Button>
+                    <Button variant="success" onClick={handleOnReview}>Leave Review</Button>
                   )}
                 </td>
               )}
