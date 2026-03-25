@@ -41,7 +41,7 @@ const JustInSection = () => {
       
       {/* Better Title */}
       <div className="d-flex align-items-center justify-content-between mb-4">
-        <h3 className="fw-bold m-0">🔥 Just In</h3>
+        <h3 className="fw-bold m-0">Just In</h3>
         <div className="line"></div>
       </div>
 
