@@ -3,7 +3,10 @@
 
 import { apiProcessor } from "./api";
 
-const apiBaseUrl = "http://localhost:8000";
+// const apiBaseUrl = "http://localhost:8000";
+const apiBaseUrl = import.meta.env.VITE_BASE_API_URL;
+
+// import.meta.env.VITE_BASE_API_URL;
 // const apiBaseUrl = "https://lms-be-zh0y.onrender.com";
 const authApiEP = apiBaseUrl + "/api/v1/auth";
 
