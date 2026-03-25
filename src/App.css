@@ -68,3 +68,51 @@
     right: -5px;
     transition: all 0.5s;
 }
+
+/* just in section */
+/* just in section */
+
+
+.justin-section .line {
+  flex: 1;
+  height: 2px;
+  background: #ddd;
+  margin-left: 10px;
+}
+
+/* Equal height + smooth UI */
+.card-wrapper {
+  height: 100%;
+}
+
+.card-wrapper .card {
+  height: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 1px solid #eee;
+}
+
+/*  Hover effect */
+.card-wrapper .card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+/*  Image consistency */
+.card img {
+  height: 200px;
+  object-fit: cover;
+}
+
+/*  Button styling (your theme) */
+.card .btn {
+  background-color: #0c08ef;
+  border: none;
+}
+
+.card .btn:hover {
+  background-color: #b8642f;
+}
+/* just in section */
+/* just in section */
